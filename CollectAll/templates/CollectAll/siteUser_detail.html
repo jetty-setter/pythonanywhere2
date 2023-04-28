@@ -1,0 +1,31 @@
+{% extends "CollectAll/base.html" %}
+
+{% block content %}
+<h1>{{ siteuser.first_name }} {{ siteuser.last_name }}</h1>
+
+<div class = "pictures">
+    <div>
+    {% if siteuser.user_image %}
+        <img class="profile_pict" src="{{ siteuser.user_image.url }}">
+    {% endif %}
+    </div>
+</div>
+
+<p><strong>About Me: </strong>{{ siteuser.description }}</p>
+    <h4>My Collections</h4>
+    <hr>
+{% if siteuser.collection_set.all %}
+<ul>
+{% for collection in siteuser.collection_set.all %}
+<li>
+<a href="{{ collection.get_absolute_url }}">{{ collection.name }}</a>
+</li>
+{% endfor %}
+</ul>
+{% else %}
+<p>There are no existing collections.</p>
+{% endif %}
+
+    <a href="{% url 'index' %}">Back to CollectAll Home</a>
+
+{% endblock %}

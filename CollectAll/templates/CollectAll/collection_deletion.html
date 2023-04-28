@@ -1,0 +1,16 @@
+{% extends "CollectAll/base.html" %}
+{% block content %}
+{% if user.is_authenticated and user == collection.user %}
+<h1>Delete Collection {{ collection.first_name }}</h1>
+<form method="Post">
+{% csrf_token %}
+<input type="submit" class="btn btn-danger"
+value="Delete">
+<a href="{% url 'index' pk=collection.id %}
+">Cancel</a>
+</form>
+{% else %}
+    You are not authorized to delete this collection
+<a href="{% url 'index' %}">Home</a>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "CollectAll/base.html" %}
+{% block content %}
+<h1>Personal Collection List</h1>
+    {% if messages %}
+{% for message in messages %}
+<div class="alert alert-warning alert-dismissible fade show"
+role="alert">
+{{ message }}
+<button type="button" class="btn-close" data-bs-
+dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+{% if collection_list %}
+<ul>
+{% for collection in collection_list %}
+        <li>
+            <a href="{{ collection.get_absolute_url }}">{{ collection.name }}</a>
+        {% if collection.collection_set.all or collection.collectionitem_set.all %}
+            Cannot Delete
+        {% else %}
+            <a href="{% url 'collection_delete' pk=collection.pk %}"
+                onclick="return confirm('Are you sure you want to delete?')"
+            class="btn btn-danger">Delete</a>
+        {% endif %}
+            <a href="{% url 'collection_update' pk=collection.pk %}" class="btn btn-primary">Edit Collection</a>
+        </li>
+{% endfor %}
+</ul>
+{% else %}
+<p>There are no existing collections.</p>
+{% endif %}
+    <a class="" href="{% url 'collection_create' %}">Add Collection</a>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "CollectAll/base.html" %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    {% if collection and collection.siteUser == user or collection == None and user.is_authenticated %}
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Submit"/>
+        </form>
+    {% else %}
+        You are not authorized to alter this collection.
+        <a href="{% url 'index' %}">Home</a>
+    {% endif %}
+{% endblock %}
