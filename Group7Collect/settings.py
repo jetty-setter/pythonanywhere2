@@ -130,8 +130,8 @@ AUTH_USER_MODEL = 'CollectAll.SiteUser'
 
 LOGIN_REDIRECT_URL = '/'
 
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'uno.isqa3900.group7@gmail.com'
