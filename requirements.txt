@@ -6,3 +6,5 @@ pip==23.0.1
 setuptools==67.6.0
 sqlparse==0.4.3
 wheel==0.38.4
+djangorestframework~=3.14.0
+selenium~=4.9.0

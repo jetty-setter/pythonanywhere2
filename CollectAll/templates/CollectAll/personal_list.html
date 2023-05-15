@@ -24,6 +24,7 @@ dismiss="alert" aria-label="Close"></button>
             class="btn btn-danger">Delete</a>
         {% endif %}
             <a href="{% url 'collection_update' pk=collection.pk %}" class="btn btn-primary">Edit Collection</a>
+            <a href="{% url 'add_collection_item' pk=collection.pk %}" class="btn btn-primary">Add Item</a>
         </li>
 {% endfor %}
 </ul>

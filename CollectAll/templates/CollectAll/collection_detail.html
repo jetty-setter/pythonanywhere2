@@ -1,7 +1,7 @@
 {% extends "CollectAll/base.html" %}
 {% block content %}
     {% if collection.private == False or collection.private == True and collection.siteUser == user %}
-<h1>Name: {{ collection.name }}</h1>
+<h1>Collection: {{ collection.name }}</h1>
 
     <div>
     {% if collection.collection_image %}
@@ -10,8 +10,10 @@
     </div>
 
 <p><strong>Owner:</strong> <a href="">{{ collection.siteUser.username }}</a></p>
+<p><strong>Collection Type:</strong> {{ collection.collectionType.name }}</p>
+<p><strong>Notes: </strong>{{ collection.notes }}</p>
 <div style="margin-left:20px;margin-top:20px">
-<h4>Items</h4>
+<h4>Items in Collection</h4>
 {% for subCollection in collection.collection_set.all %}
     <hr>
     <h5>{{ subCollection.name }}</h5>
@@ -24,7 +26,7 @@
     <p><strong>Collected:</strong>{{ collectionItem.collectedDate }}</p>
     <p><string>Notes:</string>{{ collectionItem.notes }}</p>
 {% endfor %}
-<p><string>Notes: </string>{{ collection.notes }}</p>
+
 </div>
     {% else %}
     You are not authorized to view this collection
