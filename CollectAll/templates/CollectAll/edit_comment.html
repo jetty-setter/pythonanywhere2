@@ -1,0 +1,11 @@
+{% extends 'CollectAll/base.html' %}
+
+{% block content %}
+  <h2>Edit Comment</h2>
+  <form method="post" action="{% url 'edit_comment' comment.pk %}">
+    {% csrf_token %}
+    <label for="comments">Comment:</label>
+    <textarea name="comments" id="comments" rows="4" cols="50">{{ comment.comments }}</textarea><br>
+    <button type="submit">Update Comment</button>
+  </form>
+{% endblock %}

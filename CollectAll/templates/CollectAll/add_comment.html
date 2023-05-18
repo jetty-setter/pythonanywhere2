@@ -1,0 +1,11 @@
+{% extends "CollectAll/base.html" %}
+
+{% block content %}
+  <h1>Add Comment</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="siteUser" value="{{ request.user.username }}">
+    <button type="submit">Submit</button>
+  </form>
+{% endblock %}

@@ -19,3 +19,4 @@ media
 # Only for Development only
 **/migrations/**
 !**/migrations/__init__.py
+CollectAll/__pycache__/views.cpython-311.pyc

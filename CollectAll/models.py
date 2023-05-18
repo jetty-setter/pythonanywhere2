@@ -1,7 +1,8 @@
 from django.contrib.auth.models import AbstractUser
-#from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
+from datetime import datetime
+
 
 class Category(models.Model):
     name = models.CharField(max_length=200, help_text='Enter a category name')
@@ -12,6 +13,13 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+class Comment(models.Model):
+    collection = models.ForeignKey('Collection', on_delete=models.RESTRICT, null=True)
+    siteUser = models.ForeignKey('SiteUser', on_delete=models.RESTRICT, null=True)
+    comments = models.TextField()
+    timestamp = models.DateTimeField(default=datetime.now)
+    def __str__(self):
+        return self.comments
 
 class Collection(models.Model):
     name = models.CharField(max_length=200, help_text='Enter a Collection Title')
@@ -23,6 +31,7 @@ class Collection(models.Model):
     parent = models.ForeignKey('Collection', on_delete=models.RESTRICT, null=True, blank=True)
     collection_image = models.ImageField(upload_to='images/', null=True, blank=True)
     categories = models.ManyToManyField('Category', related_name='collections', blank=True)
+    comments = models.ManyToManyField('Comment', related_name='collection_comments', blank=True)
 
     class Meta:
         ordering = ['name']
@@ -50,13 +59,13 @@ class CollectionItem(models.Model):
     collectedDate = models.DateField()
     collection = models.ForeignKey('Collection', on_delete=models.RESTRICT, null=True)
     collectionItem_image = models.ImageField(upload_to='images/', null=True, blank=True)
-    categories = models.ManyToManyField('Category', related_name='items', blank=True)
+#    categories = models.ManyToManyField('Category', related_name='items', blank=True)
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('collectionItem_detail', args=[str(self.id)])
+        return reverse('collection_detail', args=[str(self.collection.id)])
 
 
 class SiteUser(AbstractUser):
@@ -64,12 +73,7 @@ class SiteUser(AbstractUser):
     first_name = models.CharField(max_length=150)
     description = models.TextField(null=True)
     user_image = models.ImageField(upload_to='images/', null=True, blank=True)
+    favorite_collections = models.ManyToManyField(Collection, related_name='favored_by', blank=True)
 
     def get_absolute_url(self):
         return reverse('profile', args=[str(self.id)])
-
-
-class UserComment(models.Model):
-    comment = models.TextField(max_length=200)
-    siteUser = models.ForeignKey('SiteUser', on_delete=models.RESTRICT, null=True)
-    collection = models.ForeignKey('Collection', on_delete=models.RESTRICT, null=True)

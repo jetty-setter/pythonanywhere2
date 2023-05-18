@@ -1,0 +1,24 @@
+{% extends 'CollectAll/base.html' %}
+
+{% block content %}
+  <h1>Favorite Collections</h1>
+  {% if collections %}
+    <ul>
+      {% for collection in collections %}
+        <li><a href="{% url 'collection_detail' collection.pk %}">{{ collection.name }}</a></li>
+        {% if collection.collection_set.all or collection.collectionitem_set.all %}
+            Cannot Delete
+        {% else %}
+            <a href="{% url 'collection_delete' pk=collection.pk %}"
+                onclick="return confirm('Are you sure you want to delete?')"
+            class="btn btn-danger">Delete</a>
+        {% endif %}
+            <a href="{% url 'collection_update' pk=collection.pk %}" class="btn btn-primary">Edit Collection</a>
+            <a href="{% url 'add_collection_item' pk=collection.pk %}" class="btn btn-primary">Add Item</a>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No favorite collections found.</p>
+  {% endif %}
+{% endblock %}
+

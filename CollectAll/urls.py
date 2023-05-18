@@ -13,5 +13,10 @@ urlpatterns = [
 	path('collection/<int:pk>/delete/', views.collection_delete, name='collection_delete'),
 	path('search_collections/', views.search_collections, name='search_collections'),
 	path('collectionItem/create/<int:pk>/', views.add_collection_item, name='add_collection_item'),
-	path('favorite/', views.favorite, name='favorite'),
+	path('collectionItem/<int:pk>/update/', views.CollectionItemUpdate.as_view(), name='collectionItem_update'),
+	path('collectionItem/<int:pk>/delete/', views.collectionItem_delete, name='collectionItem_delete'),
+	path('favorites/', views.favorites_list, name='favorites_list'),
+	path('collection/<int:pk>/add_comment/', views.add_comment, name='add_comment'),
+	path('comment/<int:pk>/edit/', views.edit_comment, name='edit_comment'),
+    path('comment/<int:pk>/delete/', views.delete_comment, name='delete_comment'),
 ]

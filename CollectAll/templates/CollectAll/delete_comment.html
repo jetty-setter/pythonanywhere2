@@ -1,0 +1,10 @@
+{% extends 'CollectAll/base.html' %}
+
+{% block content %}
+  <h2>Delete Comment</h2>
+  <p>Are you sure you want to delete the comment "{{ comment.comments }}"?</p>
+  <form method="post" action="{% url 'delete_comment' comment.id %}">
+    {% csrf_token %}
+    <button type="submit">Delete Comment</button>
+  </form>
+{% endblock %}
